@@ -1,5 +1,4 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-import { modalReducer } from "@shared/store/modalStyle"
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -27,7 +26,6 @@ export const { login, logout } = authSlice.actions;
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
-    modal: modalReducer,
   },
 });
 
