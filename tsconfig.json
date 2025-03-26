@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "types": ["node", "react", "react-dom"],
+    "target": "es2016",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "jsx": "react-jsx",
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"],
+      "@app/*": ["1_app/*"],
+      "@pages/*": ["2_pages/*"],
+      "@widgets/*": ["3_widgets/*"],
+      "@features/*": ["4_features/*"],
+      "@entities/*": ["5_entities/*"],
+      "@shared/*": ["6_shared/*"]
+    }
+  },
+  "include": ["src"]
+}
