@@ -1,0 +1,11 @@
+@font-face {
+  font-family: "HONOR VF";
+  src: url("../../public/HONORSansVFNormal.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+body {
+  font-family: "HONOR VF", sans-serif;
+}
