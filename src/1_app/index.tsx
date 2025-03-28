@@ -10,7 +10,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 const theme = createTheme({
   typography: {
-    fontFamily: '"HONOR VF", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Montserrat-Medium", "Roboto", "Helvetica", "Arial", sans-serif',
   },
 });
 

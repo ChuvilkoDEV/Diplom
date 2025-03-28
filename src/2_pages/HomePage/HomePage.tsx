@@ -7,7 +7,7 @@ export const HomePage: React.FC = () => {
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
       <Typography variant="h3" textAlign="center" gutterBottom>
-        Найди компанию для ярких событий!
+        Найдите друзей и единомышленников
       </Typography>
       <Typography variant="h6" textAlign="center" color="textSecondary" gutterBottom>
         Исследуйте мероприятия в своем городе, знакомьтесь с новыми людьми и расширяйте круг общения.
