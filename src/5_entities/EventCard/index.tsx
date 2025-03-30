@@ -21,7 +21,7 @@ interface EventCardProps {
 export const EventCard: React.FC<EventCardProps> = ({ id, title, categories, date, location, participants, creator }) => {
   return (
     <Card sx={{ height: "100%", display: "flex", flexDirection: "column", p: 2, borderRadius: '20px' }}>
-      <CardContent sx={{ flexGrow: 1, padding: 0 }}>
+      <CardContent sx={{ flexGrow: 1, padding: 0 }} style={{paddingBottom: 0}}>
         <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
           <Avatar src={creator.avatar} alt={creator.name} sx={{ width: 56, height: 56, mr: 2 }} />
           <Box>

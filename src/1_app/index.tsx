@@ -10,7 +10,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 const theme = createTheme({
   typography: {
-    fontFamily: '"Montserrat-Medium", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
   },
 });
 
@@ -18,7 +18,7 @@ export const App: React.FC = () => {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <CssBaseline /> {/* Глобальный сброс стилей */}
+        <CssBaseline />
         <Router>
           <Header />
           <Routes>
