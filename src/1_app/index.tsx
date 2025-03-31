@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "@app/store/store";
 import { HomePage } from "@pages/HomePage";
+import { EventPage } from '@pages/EventPage'
 import { Header } from "@widgets/Header";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -23,6 +24,7 @@ export const App: React.FC = () => {
           <Header />
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/event/:id" element={<EventPage />} /> {/* Новый маршрут */}
           </Routes>
         </Router>
       </ThemeProvider>
