@@ -13,8 +13,8 @@ export const NavBar: React.FC<NavBarProps> = ({ setOpenMenu, setOpenLogin, setOp
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <AppBar position="static">
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+    <AppBar position="static" sx={{ backgroundColor: "white", color: "black", boxShadow: "none" }}>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between", width: "100%", maxWidth: "1200px", margin: "0 auto" }}>
         {/* Логотип и бургер-меню */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
           {isMobile && (
@@ -28,8 +28,9 @@ export const NavBar: React.FC<NavBarProps> = ({ setOpenMenu, setOpenLogin, setOp
         </Box>
 
         {/* Навигационные ссылки (по центру) */}
+        {/* ToDo: Вынести ссылки в константу*/}
         {!isMobile && (
-          <Box sx={{ display: "flex", gap: 3, position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
+          <Box sx={{ display: "flex", gap: 3 }}>
             <Button color="inherit" href="/">Главная</Button>
             <Button color="inherit" href="/events">События</Button>
             <Button color="inherit" href="/users">Пользователи</Button>
@@ -40,8 +41,36 @@ export const NavBar: React.FC<NavBarProps> = ({ setOpenMenu, setOpenLogin, setOp
         {/* Кнопки входа и регистрации (справа) */}
         {!isMobile && (
           <Box sx={{ display: "flex", gap: 2 }}>
-            <Button color="inherit" onClick={() => setOpenLogin(true)}>Вход</Button>
-            <Button color="inherit" onClick={() => setOpenRegistration(true)}>Регистрация</Button>
+            <Button
+              onClick={() => setOpenLogin(true)}
+              sx={{
+                color: "black",
+                fontWeight: "500",
+                border: "1px solid black",
+                borderRadius: 10,
+                padding: "10px 24px",
+                "&:hover": {
+                  backgroundColor: "#4FB0FD",
+                },
+              }}
+            >
+              Вход
+            </Button>
+            <Button
+              onClick={() => setOpenRegistration(true)}
+              className={'gradient'}
+              sx={{
+                color: "white",
+                fontWeight: "500",
+                borderRadius: 10,
+                padding: "10px 24px",
+                "&:hover": {
+                  backgroundColor: "#4FB0FD",
+                },
+              }}
+            >
+              Регистрация
+            </Button>
           </Box>
         )}
       </Toolbar>
