@@ -1,4 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@app/store/store";
+import {
+  closeLogin,
+  closeRegistration,
+  openLogin,
+  openRegistration,
+  openMenu,
+  closeMenu,
+} from "@app/store/store";
 import { LoginForm } from "@features/LoginForm";
 import { RegistrationForm } from "@features/RegistrationForm";
 import { NavBar } from "./ui/NavBar";
@@ -7,25 +17,38 @@ import { MobileButtons } from "./ui/MobileButtons";
 import { ModalWrapper } from "@shared/ui/ModalWrapper";
 
 export const Header: React.FC = () => {
-  const [openMenu, setOpenMenu] = useState(false);
-  const [openLogin, setOpenLogin] = useState(false);
-  const [openRegistration, setOpenRegistration] = useState(false);
+  const dispatch = useDispatch();
+  const openLoginModal = useSelector((state: RootState) => state.auth.isLoginOpen);
+  const openRegistrationModal = useSelector((state: RootState) => state.auth.isRegistrationOpen);
+  const openMenuDrawer = useSelector((state: RootState) => state.auth.isMenuOpen);
 
   return (
     <>
-      <NavBar setOpenMenu={setOpenMenu} setOpenLogin={setOpenLogin} setOpenRegistration={setOpenRegistration} />
+      <NavBar
+        setOpenMenu={() => dispatch(openMenu())}
+        setOpenLogin={() => dispatch(openLogin())}
+        setOpenRegistration={() => dispatch(openRegistration())}
+      />
 
-      <DrawerMenu openMenu={openMenu} setOpenMenu={setOpenMenu} setOpenLogin={setOpenLogin} setOpenRegistration={setOpenRegistration} />
+      <DrawerMenu
+        openMenu={openMenuDrawer}
+        setOpenMenu={(open: boolean) => dispatch(open ? openMenu() : closeMenu())}
+        setOpenLogin={() => dispatch(openLogin())}
+        setOpenRegistration={() => dispatch(openRegistration())}
+      />
 
-      <ModalWrapper open={openLogin} onClose={() => setOpenLogin(false)}>
-        <LoginForm onClose={() => setOpenLogin(false)} />
+      <ModalWrapper open={openLoginModal} onClose={() => dispatch(closeLogin())}>
+        <LoginForm onClose={() => dispatch(closeLogin())} />
       </ModalWrapper>
 
-      <ModalWrapper open={openRegistration} onClose={() => setOpenRegistration(false)}>
-        <RegistrationForm onClose={() => setOpenRegistration(false)} />
+      <ModalWrapper open={openRegistrationModal} onClose={() => dispatch(closeRegistration())}>
+        <RegistrationForm onClose={() => dispatch(closeRegistration())} />
       </ModalWrapper>
 
-      <MobileButtons setOpenLogin={setOpenLogin} setOpenRegistration={setOpenRegistration} />
+      <MobileButtons
+        setOpenLogin={() => dispatch(openLogin())}
+        setOpenRegistration={() => dispatch(openRegistration())}
+      />
     </>
   );
 };
