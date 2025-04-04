@@ -1,65 +1,13 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-
-interface AuthState {
-  isAuthenticated: boolean;
-  isLoginOpen: boolean;
-  isRegistrationOpen: boolean;
-  isMenuOpen: boolean;
-}
-
-const initialState: AuthState = {
-  isAuthenticated: false,
-  isLoginOpen: false,
-  isRegistrationOpen: false,
-  isMenuOpen: false,
-};
-
-const authSlice = createSlice({
-  name: 'auth',
-  initialState,
-  reducers: {
-    login: (state) => {
-      state.isAuthenticated = true;
-    },
-    logout: (state) => {
-      state.isAuthenticated = false;
-    },
-    openLogin: (state) => {
-      state.isLoginOpen = true;
-    },
-    closeLogin: (state) => {
-      state.isLoginOpen = false;
-    },
-    openRegistration: (state) => {
-      state.isRegistrationOpen = true;
-    },
-    closeRegistration: (state) => {
-      state.isRegistrationOpen = false;
-    },
-    openMenu: (state) => {
-      state.isMenuOpen = true;
-    },
-    closeMenu: (state) => {
-      state.isMenuOpen = false;
-    },
-  },
-});
-
-
-export const {
-  login,
-  logout,
-  openLogin,
-  closeLogin,
-  openRegistration,
-  closeRegistration,
-  openMenu,
-  closeMenu,
-} = authSlice.actions;
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "./authSlice";
+export * from "./authSlice";
+import uiReducer from "@widgets/Header/model/uiSlice"
+export * from "@widgets/Header/model/uiSlice";
 
 export const store = configureStore({
   reducer: {
-    auth: authSlice.reducer,
+    auth: authReducer,
+    ui: uiReducer,
   },
 });
 

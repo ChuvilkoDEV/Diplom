@@ -18,9 +18,9 @@ import { ModalWrapper } from "@shared/ui/ModalWrapper";
 
 export const Header: React.FC = () => {
   const dispatch = useDispatch();
-  const openLoginModal = useSelector((state: RootState) => state.auth.isLoginOpen);
-  const openRegistrationModal = useSelector((state: RootState) => state.auth.isRegistrationOpen);
-  const openMenuDrawer = useSelector((state: RootState) => state.auth.isMenuOpen);
+  const openLoginModal = useSelector((state: RootState) => state.ui.isLoginOpen);
+  const openRegistrationModal = useSelector((state: RootState) => state.ui.isRegistrationOpen);
+  const openMenuDrawer = useSelector((state: RootState) => state.ui.isMenuOpen);
 
   return (
     <>
