@@ -58,10 +58,10 @@ export const EventCard: React.FC<EventCardProps> = ({ id, title, categories, dat
               ))}
             </Stack>
             <Typography sx={{ fontSize: "16px", fontWeight: "600" }}>{title}</Typography>
-            <Stack direction="row" spacing={1} sx={{ mt: 1, flexWrap: "wrap" }}>
-              <Chip label={`📅 ${date}`} />
-              <Chip label={`📍 ${location}`} />
-            </Stack>
+            {/*<Stack direction="row" spacing={1} sx={{ mt: 1, flexWrap: "wrap" }}>*/}
+            {/*  <Chip label={`📅 ${date}`} />*/}
+            {/*  <Chip label={`📍 ${location}`} />*/}
+            {/*</Stack>*/}
           </Box>
         </Box>
         <Box sx={{ backgroundColor: "#f5f5f5", borderRadius: "20px", p: 2, mt: 3, overflow: "hidden" }}>

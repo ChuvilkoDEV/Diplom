@@ -6,6 +6,7 @@ import { store } from "@app/store/store";
 import { HomePage } from "@pages/HomePage";
 import { EventPage } from '@pages/EventPage'
 import { Header } from "@widgets/Header";
+import { Footer } from '@widgets/Footer'
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -26,6 +27,7 @@ export const App: React.FC = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/event/:id" element={<EventPage />} /> {/* Новый маршрут */}
           </Routes>
+          <Footer />
         </Router>
       </ThemeProvider>
     </Provider>
