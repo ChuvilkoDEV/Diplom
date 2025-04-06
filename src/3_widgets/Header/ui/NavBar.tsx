@@ -43,12 +43,11 @@ export const NavBar: React.FC<NavBarProps> = ({ setOpenMenu, setOpenLogin, setOp
           <Box sx={{ display: "flex", gap: 2 }}>
             <Button
               onClick={() => setOpenLogin(true)}
+              className={'default-btn'}
               sx={{
                 color: "black",
                 fontWeight: "500",
                 border: "1px solid black",
-                borderRadius: 10,
-                padding: "10px 24px",
                 "&:hover": {
                   backgroundColor: "#4FB0FD",
                 },
@@ -58,12 +57,10 @@ export const NavBar: React.FC<NavBarProps> = ({ setOpenMenu, setOpenLogin, setOp
             </Button>
             <Button
               onClick={() => setOpenRegistration(true)}
-              className={'gradient'}
+              className={'gradient default-btn'}
               sx={{
                 color: "white",
                 fontWeight: "500",
-                borderRadius: 10,
-                padding: "10px 24px",
                 "&:hover": {
                   backgroundColor: "#4FB0FD",
                 },
