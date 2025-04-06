@@ -10,3 +10,5 @@ yarn-error.log*
 .pnp.js
 
 .vscode/*
+/ubuntu-STD2-2-6-10GB-0z7lC2H9.pem
+/build/
