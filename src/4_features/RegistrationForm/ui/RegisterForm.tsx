@@ -68,6 +68,11 @@ export const RegisterForm: React.FC<{ onClose: () => void }> = ({ onClose }) => 
           className="gradient default-btn"
           onClick={handleSubmit}
           disabled={!form.email || !form.password || !form.name}
+          sx={{
+            opacity: !form.email || !form.password || !form.name ? 0.5 : 1,
+            pointerEvents: !form.email || !form.password || !form.name ? 'none' : 'auto',
+            transition: 'opacity 0.3s ease',
+          }}
         >
           Зарегистрироваться
         </Button>
