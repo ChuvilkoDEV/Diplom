@@ -10,7 +10,7 @@ import {
   closeMenu,
 } from "@app/store/store";
 import { LoginForm } from "@features/LoginForm";
-import { RegistrationForm } from "@features/RegistrationForm";
+import { RegisterForm } from "@features/RegistrationForm";
 import { NavBar } from "./ui/NavBar";
 import { DrawerMenu } from "./ui/DrawerMenu";
 import { MobileButtons } from "./ui/MobileButtons";
@@ -42,7 +42,7 @@ export const Header: React.FC = () => {
       </ModalWrapper>
 
       <ModalWrapper open={openRegistrationModal} onClose={() => dispatch(closeRegistration())}>
-        <RegistrationForm onClose={() => dispatch(closeRegistration())} />
+        <RegisterForm onClose={() => dispatch(closeRegistration())} />
       </ModalWrapper>
 
       <MobileButtons
