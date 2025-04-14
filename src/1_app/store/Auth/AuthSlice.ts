@@ -9,11 +9,15 @@ const initialState: AuthState = {
 };
 
 export const authSlice = createSlice({
-  name: "auth",
+  name: "status",
   initialState,
   reducers: {
-    login: (state) => { state.isAuthenticated = true },
-    logout: (state) => { state.isAuthenticated = false },
+    login: (state) => {
+      state.isAuthenticated = true;
+    },
+    logout: (state) => {
+      state.isAuthenticated = false;
+    },
   },
 });
 

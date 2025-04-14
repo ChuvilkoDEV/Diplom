@@ -1,17 +1,22 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { RegisterFormData } from './types';
-import { validateRegisterForm } from './lib/validateRegisterForm';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { RegisterFormData } from "./types"; // типы формы
 
 export const registerThunk = createAsyncThunk<
-  void,
-  RegisterFormData,
-  { rejectValue: string }
->('auth/register', async (data, { rejectWithValue }) => {
-  const error = validateRegisterForm(data);
-  if (error) return rejectWithValue(error);
+  void, // возвращаемый тип
+  RegisterFormData, // входящие данные
+  { rejectValue: string } // возможная ошибка
+>(
+  "registration/register",
+  async (formData, { rejectWithValue }) => {
+    try {
+      // твой реальный API-запрос здесь
+      await fakeRegisterAPI(formData);
+    } catch (e) {
+      return rejectWithValue("Ошибка при регистрации");
+    }
+  }
+);
 
-  // Здесь будет реальный API вызов
-  // await api.register(data);
-
-  return; // если всё ок
-});
+// моковый API
+const fakeRegisterAPI = (data: RegisterFormData) =>
+  new Promise((res) => setTimeout(res, 500));

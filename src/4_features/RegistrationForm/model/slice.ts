@@ -1,30 +1,23 @@
+// features/RegistrationForm/model/registrationSlice.ts
 import { createSlice } from '@reduxjs/toolkit';
 import { registerThunk } from './thunks';
 
-interface AuthState {
-  isAuthenticated: boolean;
+interface RegistrationState {
   error: string | null;
 }
 
-const initialState: AuthState = {
-  isAuthenticated: false,
+const initialState: RegistrationState = {
   error: null,
 };
 
-export const authSlice = createSlice({
-  name: 'auth',
+export const registrationSlice = createSlice({
+  name: 'registration',
   initialState,
-  reducers: {
-    logout: (state) => {
-      state.isAuthenticated = false;
-      state.error = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(registerThunk.fulfilled, (state) => {
-        state.isAuthenticated = true;
-        state.error = null;
+      .addCase(registerThunk.fulfilled, () => {
+        // ничего не делаем — authSlice будет менять isAuthenticated
       })
       .addCase(registerThunk.rejected, (state, action) => {
         state.error = action.payload || 'Ошибка регистрации';
@@ -32,5 +25,4 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
-export default authSlice.reducer;
+export default registrationSlice.reducer;

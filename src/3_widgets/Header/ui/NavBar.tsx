@@ -1,6 +1,8 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, IconButton, Button, useMediaQuery, useTheme, Box } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useSelector } from 'react-redux'
+import { RootState } from '@app/store/store'
 
 interface NavBarProps {
   setOpenMenu: (open: boolean) => void;
@@ -11,6 +13,7 @@ interface NavBarProps {
 export const NavBar: React.FC<NavBarProps> = ({ setOpenMenu, setOpenLogin, setOpenRegistration }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
   return (
     <AppBar position="static" sx={{ backgroundColor: "white", color: "black", boxShadow: "none" }}>
@@ -38,8 +41,7 @@ export const NavBar: React.FC<NavBarProps> = ({ setOpenMenu, setOpenLogin, setOp
           </Box>
         )}
 
-        {/* Кнопки входа и регистрации (справа) */}
-        {!isMobile && (
+        {isAuthenticated ? <span>Авторизован</span> : (!isMobile && (
           <Box sx={{ display: "flex", gap: 2 }}>
             <Button
               onClick={() => setOpenLogin(true)}
@@ -69,7 +71,8 @@ export const NavBar: React.FC<NavBarProps> = ({ setOpenMenu, setOpenLogin, setOp
               Регистрация
             </Button>
           </Box>
-        )}
+        ))
+      }
       </Toolbar>
     </AppBar>
   );

@@ -8,7 +8,7 @@ import {
   openRegistration,
   openMenu,
   closeMenu,
-} from "@app/store/store";
+} from "@widgets/Header/model/uiSlice";
 import { LoginForm } from "@features/LoginForm";
 import { RegisterForm } from "@features/RegistrationForm";
 import { NavBar } from "./ui/NavBar";

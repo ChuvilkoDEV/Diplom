@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { login } from '@app/store/store';
+import {login} from "@app/store/Auth/AuthSlice";
 import {
   Button,
   Container,
