@@ -7,20 +7,49 @@ import HikingIcon from "@mui/icons-material/Hiking";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
 import CodeIcon from "@mui/icons-material/Code";
 
+const GradientIcon = ({ IconComponent }: { IconComponent: React.ElementType }) => (
+  <Box
+    sx={{
+      color: "linear-gradient(45deg, #ff6ec4, #7873f5)",
+      WebkitMaskImage: "-webkit-linear-gradient(black, black)",
+      WebkitMaskComposite: "source-in",
+      maskComposite: "intersect",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: 40,
+      width: 40,
+      height: 40,
+    }}
+  >
+    <IconComponent sx={{ fontSize: 40 }} />
+  </Box>
+);
+
 const activities = [
-  { title: "Футбол и другие командные игры", icon: <SportsSoccerIcon fontSize="large" /> },
-  { title: "Творческие мастер-классы", icon: <BrushIcon fontSize="large" /> },
-  { title: "Неформальные встречи и посиделки", icon: <LocalCafeIcon fontSize="large" /> },
-  { title: "Прогулки и походы", icon: <HikingIcon fontSize="large" /> },
-  { title: "Музыкальные джемы", icon: <MusicNoteIcon fontSize="large" /> },
-  { title: "Кодинг и IT-митапы", icon: <CodeIcon fontSize="large" /> },
+  { title: "Футбол и другие командные игры", icon: SportsSoccerIcon },
+  { title: "Творческие мастер-классы", icon: BrushIcon },
+  { title: "Неформальные встречи и посиделки", icon: LocalCafeIcon },
+  { title: "Прогулки и походы", icon: HikingIcon },
+  { title: "Музыкальные джемы", icon: MusicNoteIcon },
+  { title: "Кодинг и IT-митапы", icon: CodeIcon },
 ];
 
 const PopularActivities: React.FC = () => {
   return (
     <Box sx={{ py: 6, backgroundColor: "#f9f9f9" }}>
       <Container maxWidth="lg">
-        <Typography variant="h4" textAlign="center" fontWeight={600} mb={4}>
+        <Typography
+          className="gradient"
+          sx={{
+            textAlign: "center",
+            mb: 4,
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            fontWeight: "600",
+            fontSize: '40px',
+          }}
+        >
           Чем занимаются участники?
         </Typography>
         <Grid container spacing={3} justifyContent="center">
@@ -37,7 +66,7 @@ const PopularActivities: React.FC = () => {
                   height: "100%",
                 }}
               >
-                {activity.icon}
+                <GradientIcon IconComponent={activity.icon} />
                 <Typography variant="body1">{activity.title}</Typography>
               </Paper>
             </Grid>

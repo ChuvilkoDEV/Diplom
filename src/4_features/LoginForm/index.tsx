@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material/styles';
+import { closeLogin } from '@widgets/Header/model/uiSlice'
 
 export const LoginForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const dispatch = useDispatch();
@@ -22,7 +23,8 @@ export const LoginForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleLogin = () => {
-    dispatch(login());
+    dispatch(login('123'));
+    dispatch(closeLogin());
   };
 
   return (

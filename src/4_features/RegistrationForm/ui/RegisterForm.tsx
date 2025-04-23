@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
+import { closeRegistration } from '@widgets/Header/model/uiSlice'
 
 export const RegisterForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [form, setForm] = useState<RegisterFormData>({ email: '', password: '', name: '' });
@@ -26,7 +27,7 @@ export const RegisterForm: React.FC<{ onClose: () => void }> = ({ onClose }) => 
   };
 
   const handleSubmit = () => {
-    dispatch(registerThunk(form));
+    dispatch(registerThunk(form)).then(dispatch(closeRegistration()));
   };
 
   return (
