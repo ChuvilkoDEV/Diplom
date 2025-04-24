@@ -35,13 +35,77 @@ const activities = [
 const PopularActivities: React.FC = () => {
   return (
     <Box sx={{ py: 6, position: "relative", overflow: "hidden" }}>
-      {/* Ограничивающий контейнер */}
+      {/* Волны */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100px",
+          zIndex: 1,
+          lineHeight: 0,
+        }}
+      >
+        <svg
+          viewBox="0 0 1440 100"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          style={{ display: "block", width: "100%", height: "100px" }}
+        >
+          <defs>
+            <mask id="wave-mask">
+              {/* Белый прямоугольник, который будет основой (все видно) */}
+              <rect x="0" y="0" width="100%" height="100" fill="white" />
+
+              {/* Первая волна с полупрозрачностью (черный цвет вырезает, прозрачность добавляется с помощью fill-opacity) */}
+              <path
+                fill="black"
+                fillOpacity="0.5"
+                d="M0,64L60,58C120,53,240,43,360,32C480,21,600,11,720,21C840,32,960,64,1080,74C1200,85,1320,75,1380,69L1440,64V100H0Z"
+              >
+                <animate
+                  attributeName="d"
+                  dur="6s"
+                  repeatCount="indefinite"
+                  values="
+              M0,64L60,58C120,53,240,43,360,32C480,21,600,11,720,21C840,32,960,64,1080,74C1200,85,1320,75,1380,69L1440,64V100H0Z;
+              M0,59L60,53C120,48,240,38,360,27C480,16,600,6,720,16C840,27,960,59,1080,69C1200,80,1320,70,1380,64L1440,59V100H0Z;
+              M0,64L60,58C120,53,240,43,360,32C480,21,600,11,720,21C840,32,960,64,1080,74C1200,85,1320,75,1380,69L1440,64V100H0Z
+            "
+                />
+              </path>
+
+              {/* Вторая волна с полной непрозрачностью (черный цвет вырезает) */}
+              <path
+                fill="black"
+                d="M0,40L60,46C120,52,240,63,360,67C480,71,600,63,720,56C840,49,960,42,1080,46C1200,50,1320,66,1380,74L1440,82V100H0Z"
+              >
+                <animate
+                  attributeName="d"
+                  dur="6s"
+                  repeatCount="indefinite"
+                  values="
+              M0,40L60,46C120,52,240,63,360,67C480,71,600,63,720,56C840,49,960,42,1080,46C1200,50,1320,66,1380,74L1440,82V100H0Z;
+              M0,45L60,51C120,57,240,68,360,72C480,76,600,68,720,61C840,54,960,47,1080,51C1200,55,1320,71,1380,79L1440,87V100H0Z;
+              M0,40L60,46C120,52,240,63,360,67C480,71,600,63,720,56C840,49,960,42,1080,46C1200,50,1320,66,1380,74L1440,82V100H0Z
+            "
+                />
+              </path>
+            </mask>
+          </defs>
+
+          {/* Прямоугольник с маской, который будет отрезан обеими волнами */}
+          <rect x="0" y="0" width="100%" height="100" fill="white" mask="url(#wave-mask)" />
+        </svg>
+      </Box>
+
+      {/* Основной контент */}
       <Box
         sx={{
           position: "relative",
-          // maxWidth: 1400,
           mx: "auto",
-          px: 2, // чтобы контент не прилипал к краям
+          px: 2,
           "::before": {
             content: '""',
             position: "absolute",
@@ -68,7 +132,7 @@ const PopularActivities: React.FC = () => {
           },
         }}
       >
-        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
           <Typography
             sx={{
               textAlign: "center",
