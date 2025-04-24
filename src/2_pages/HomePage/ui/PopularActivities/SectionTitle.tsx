@@ -4,11 +4,11 @@ const SectionTitle = () => (
   <Typography
     sx={{
       textAlign: "center",
+      mt: 6,
       mb: 4,
       WebkitBackgroundClip: "text",
-      WebkitTextFillColor: "transparent",
       fontWeight: "600",
-      fontSize: '40px',
+      fontSize: '50px',
       color: 'white',
     }}
   >
