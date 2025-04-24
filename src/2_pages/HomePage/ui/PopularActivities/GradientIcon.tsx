@@ -5,7 +5,7 @@ const GradientIcon = ({
                         IconComponent,
                         ...props
                       }: { IconComponent: React.ElementType } & SvgIconProps) => (
-  <svg width="60" height="60" viewBox="0 0 40 40" style={{ display: "inline-block" }}>
+  <svg width="60" height="60" viewBox="0 0 40 40" style={{ display: "inline-block", filter: "drop-shadow(0 0 3px rgba(255,255,255,0.6))", minWidth: '60px' }} >
     <defs>
       <linearGradient id="iconGradient" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stopColor="rgba(223,25,216,1)" />

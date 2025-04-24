@@ -11,7 +11,7 @@ const PopularActivities: React.FC = () => {
         py: 6,
         position: "relative",
         overflow: "hidden",
-        background: `linear-gradient(135deg, rgba(223,25,216,1), rgba(153,34,255,1))`,
+        background: `linear-gradient(166deg, rgba(223,25,216,1), rgba(153,34,255,1))`,
       }}
     >
       <BackgroundWaves />

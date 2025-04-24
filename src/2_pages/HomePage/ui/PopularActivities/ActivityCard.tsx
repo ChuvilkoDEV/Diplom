@@ -1,4 +1,4 @@
-import { Grid, Paper, Typography, Box } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import GradientIcon from "./GradientIcon";
 
 type Props = {
@@ -17,17 +17,18 @@ const ActivityCard = ({ title, icon }: Props) => (
         gap: 2,
         borderRadius: 4,
         height: "100%",
-        backgroundColor: "rgba(255, 255, 255, 0.4)", // прозрачный белый
-        boxShadow: `
-          0 0 8px rgba(223, 25, 216, 0.6),
-          0 0 16px rgba(153, 34, 255, 0.6),
-          0 0 24px rgba(223, 25, 216, 0.6)
-        `, // неоновая тень
-        backdropFilter: "blur(1px)", // добавим немного размытия
+        backgroundColor: "#f5e9ff", // мягкий светлый лавандовый
+        border: "1px solid rgba(255, 255, 255, 0.2)",
+        boxShadow: "0 0 12px rgba(223, 25, 216, 0.25), 0 4px 8px rgba(120, 115, 245, 0.15)",
+        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+        "&:hover": {
+          transform: "translateY(-4px)",
+          boxShadow: "0 0 16px rgba(223, 25, 216, 0.35), 0 6px 12px rgba(120, 115, 245, 0.25)",
+        },
       }}
     >
       <GradientIcon IconComponent={icon} />
-      <Typography variant="body1" sx={{ color: "#fff", fontWeight: 600, fontSize: '22px', lineHeight: '25px' }}>
+      <Typography variant="body1" sx={{ fontWeight: 500, color: "black", fontSize: '22px', lineHeight: '25px'}}>
         {title}
       </Typography>
     </Paper>
