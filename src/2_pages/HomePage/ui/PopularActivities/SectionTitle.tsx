@@ -4,7 +4,7 @@ const SectionTitle = () => (
   <Typography
     sx={{
       textAlign: "center",
-      mt: 6,
+      mt: 5,
       mb: 4,
       WebkitBackgroundClip: "text",
       fontWeight: "600",
