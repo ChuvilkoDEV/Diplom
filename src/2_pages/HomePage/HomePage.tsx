@@ -1,7 +1,7 @@
 import React from "react";
 import HeroSection from './ui/HeroSection'
-import EventsList from '@pages/HomePage/ui/EventsList'
-import PopularActivities from '@pages/HomePage/ui/PopularActivities'
+import EventsList from './ui/EventsList'
+import PopularActivities from './ui/PopularActivities'
 
 export const HomePage: React.FC = () => {
   return (

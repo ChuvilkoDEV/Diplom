@@ -25,7 +25,7 @@ export const App: React.FC = () => {
           <Header />
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/event/:id" element={<EventPage />} /> {/* Новый маршрут */}
+            <Route path="/event/:id" element={<EventPage />} />
           </Routes>
           <Footer />
         </Router>
