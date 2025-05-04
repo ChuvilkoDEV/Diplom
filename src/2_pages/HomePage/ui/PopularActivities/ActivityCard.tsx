@@ -11,13 +11,13 @@ const ActivityCard = ({ title, icon }: Props) => (
     <Paper
       elevation={0}
       sx={{
-        p: 3,
+        p: 2,
         display: "flex",
         alignItems: "center",
         gap: 2,
         borderRadius: 4,
         height: "100%",
-        backgroundColor: "#f7f1fd", // мягкий светлый лавандовый
+        backgroundColor: "white",
         border: "1px solid rgba(255, 255, 255, 0.2)",
         boxShadow: "0 0 12px rgba(223, 25, 216, 0.25), 0 4px 8px rgba(120, 115, 245, 0.15)",
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
@@ -32,7 +32,7 @@ const ActivityCard = ({ title, icon }: Props) => (
         fontWeight: 500,
         color: "black",
         fontSize: '18px',
-        lineHeight: '30px'
+        lineHeight: '24px'
       }}>
         {title}
       </Typography>

@@ -43,6 +43,7 @@ export const NavBar: React.FC<NavBarProps> = ({
           width: "100%",
           maxWidth: "1200px",
           margin: "0 auto",
+          py: 2,
         }}
       >
         {/* Логотип и бургер-меню */}

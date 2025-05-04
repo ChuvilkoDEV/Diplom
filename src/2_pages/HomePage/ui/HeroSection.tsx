@@ -3,7 +3,7 @@ import { Button, Container, Typography } from '@mui/material'
 
 // Компонент заголовка и кнопки
 const HeroSection: React.FC = () => (
-  <Container maxWidth="lg" sx={{ mt: 8, mb:12 }}>
+  <Container maxWidth="lg" sx={{ mt: 12, mb:16 }}>
     <Typography
       className="gradient"
       sx={{
