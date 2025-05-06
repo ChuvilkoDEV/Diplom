@@ -13,18 +13,35 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@mui/material/styles';
 import { closeLogin } from '@widgets/Header/model/uiSlice'
 import { loginThunk } from '@features/LoginForm/model/thunks'
+import { validateLoginForm } from '@features/LoginForm/model/lib/validateLoginForm'
+import { LoginFormData, LoginFormDataInit } from '@features/LoginForm/model/types'
 
 export const LoginForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  const [form, setForm] = useState<LoginFormData>(LoginFormDataInit);
   const dispatch = useAppDispatch();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
+  const handleChange = (field: keyof LoginFormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, [field]: e.target.value }));
+  };
+
   const handleLogin = () => {
-    dispatch(loginThunk({ username, password }));
-    dispatch(closeLogin());
+    const error = validateLoginForm(form)
+    if (error) {
+      alert(error);
+      return;
+    }
+
+    dispatch(loginThunk(form))
+      .unwrap()
+      .then(() => {
+        dispatch(closeLogin());
+      })
+      .catch((err: string) => {
+        alert(err); // Выведет "Неверный логин или пароль" или то, что пришло из rejectWithValue
+      });
   };
 
   return (
@@ -46,21 +63,26 @@ export const LoginForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         <TextField
           label="Email"
           type="email"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={form.username}
+          onChange={handleChange('username')}
           fullWidth
         />
         <TextField
           label="Пароль"
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={form.password}
+          onChange={handleChange('password')}
           fullWidth
         />
         <Button
           className={'gradient default-btn'}
           onClick={handleLogin}
-          disabled={!username || !password}
+          disabled={!form.username || !form.password}
+          sx={{
+            opacity: !form.username || !form.password ? 0.5 : 1,
+            pointerEvents: !form.username || !form.password ? 'none' : 'auto',
+            transition: 'opacity 0.3s ease',
+          }}
         >
           Войти
         </Button>

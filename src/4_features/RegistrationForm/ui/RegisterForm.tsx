@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { registerThunk } from '../model/thunks';
 import { RegisterFormData, RegisterFormDataInit } from '../model/types'
 import {
@@ -15,10 +14,11 @@ import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { closeRegistration } from '@widgets/Header/model/uiSlice'
 import { validateRegisterForm } from '@features/RegistrationForm/model/lib/validateRegisterForm'
+import { useAppDispatch } from '@app/store/hooks'
 
 export const RegisterForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [form, setForm] = useState<RegisterFormData>(RegisterFormDataInit);
-  const dispatch = useDispatch<any>();
+  const dispatch = useAppDispatch();
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));

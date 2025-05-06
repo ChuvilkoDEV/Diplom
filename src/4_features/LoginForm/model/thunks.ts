@@ -3,6 +3,7 @@ import api from '@shared/api';
 import { AppDispatch } from '@app/store/store'
 import { setAuthenticated } from '@app/store/Auth/AuthSlice'
 import { LoginFormData } from '@features/LoginForm/model/types'
+import axios from 'axios'
 
 export const loginThunk = createAsyncThunk<
   void,
@@ -23,7 +24,11 @@ export const loginThunk = createAsyncThunk<
         return rejectWithValue("Ошибка входа");
       }
     } catch (e) {
-      return rejectWithValue("Неверный логин или пароль");
+      if (axios.isAxiosError(e)) {
+        const serverMessage = e.response?.data || e.message;
+        return rejectWithValue(serverMessage || "Ошибка сети");
+      }
+      return rejectWithValue("Непредвиденная ошибка");
     }
   }
 );
