@@ -1,22 +1,33 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { RegisterFormData } from "./types"; // типы формы
+import { RegisterFormData } from "./types";
+import api from '@shared/api';
+import { setAuthenticated } from '@app/store/Auth/AuthSlice';
+import axios from "axios";
 
 export const registerThunk = createAsyncThunk<
-  void, // возвращаемый тип
-  RegisterFormData, // входящие данные
-  { rejectValue: string } // возможная ошибка
+  void,
+  RegisterFormData,
+  { rejectValue: string }
 >(
   "registration/register",
-  async (formData, { rejectWithValue }) => {
+  async (formData, { rejectWithValue, dispatch }) => {
     try {
-      // твой реальный API-запрос здесь
-      await fakeRegisterAPI(formData);
+      const response = await api.post("/registration", formData);
+
+      if (response.status === 200) {
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
+        dispatch(setAuthenticated(true));
+        return;
+      } else {
+        return rejectWithValue(response.data?.message || "Ошибка регистрации");
+      }
     } catch (e) {
-      return rejectWithValue("Ошибка при регистрации");
+      if (axios.isAxiosError(e)) {
+        const serverMessage = e.response?.data || e.message;
+        return rejectWithValue(serverMessage || "Ошибка сети");
+      }
+      return rejectWithValue("Непредвиденная ошибка");
     }
   }
 );
-
-// моковый API
-const fakeRegisterAPI = (data: RegisterFormData) =>
-  new Promise((res) => setTimeout(res, 500));

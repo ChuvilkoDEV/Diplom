@@ -1,5 +1,9 @@
 export interface RegisterFormData {
-  email: string;
+  username: string;
   password: string;
-  name: string;
+}
+
+export const RegisterFormDataInit = {
+  username: '',
+  password: '',
 }

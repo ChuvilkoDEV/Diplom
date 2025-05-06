@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerThunk } from '../model/thunks';
-import { RegisterFormData } from '../model/types';
+import { RegisterFormData, RegisterFormDataInit } from '../model/types'
 import {
   Container,
   TextField,
@@ -14,9 +14,10 @@ import {
 import { useTheme } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { closeRegistration } from '@widgets/Header/model/uiSlice'
+import { validateRegisterForm } from '@features/RegistrationForm/model/lib/validateRegisterForm'
 
 export const RegisterForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
-  const [form, setForm] = useState<RegisterFormData>({ email: '', password: '', name: '' });
+  const [form, setForm] = useState<RegisterFormData>(RegisterFormDataInit);
   const dispatch = useDispatch<any>();
 
   const theme = useTheme();
@@ -27,11 +28,24 @@ export const RegisterForm: React.FC<{ onClose: () => void }> = ({ onClose }) => 
   };
 
   const handleSubmit = () => {
-    dispatch(registerThunk(form)).then(dispatch(closeRegistration()));
+    const error = validateRegisterForm(form);
+    if (error) {
+      alert(error);
+      return;
+    }
+
+    dispatch(registerThunk(form))
+      .unwrap()
+      .then(() => {
+        dispatch(closeRegistration());
+      })
+      .catch((err: string) => {
+        alert(err); // Выведет "Неверный логин или пароль" или то, что пришло из rejectWithValue
+      });
   };
 
   return (
-    <Container maxWidth="xs" style={{ padding: 0 }}>
+    <Container maxWidth="xs" style={{ padding: 15 }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
         <Typography variant="h5">Регистрация</Typography>
         {isMobile && (
@@ -41,21 +55,15 @@ export const RegisterForm: React.FC<{ onClose: () => void }> = ({ onClose }) => 
         )}
       </Box>
 
-      <Typography variant="body2" color="textSecondary" mb={3}>
+      <Typography variant="body2" color="textSecondary" mb={2}>
         Создайте аккаунт, указав имя, email и пароль
       </Typography>
 
       <Box display="flex" flexDirection="column" gap={2}>
         <TextField
-          label="Имя"
-          value={form.name}
-          onChange={handleChange('name')}
-          fullWidth
-        />
-        <TextField
           label="Email"
-          value={form.email}
-          onChange={handleChange('email')}
+          value={form.username}
+          onChange={handleChange('username')}
           fullWidth
         />
         <TextField
@@ -68,10 +76,10 @@ export const RegisterForm: React.FC<{ onClose: () => void }> = ({ onClose }) => 
         <Button
           className="gradient default-btn"
           onClick={handleSubmit}
-          disabled={!form.email || !form.password || !form.name}
+          disabled={!form.username || !form.password}
           sx={{
-            opacity: !form.email || !form.password || !form.name ? 0.5 : 1,
-            pointerEvents: !form.email || !form.password || !form.name ? 'none' : 'auto',
+            opacity: !form.username || !form.password ? 0.5 : 1,
+            pointerEvents: !form.username || !form.password ? 'none' : 'auto',
             transition: 'opacity 0.3s ease',
           }}
         >

@@ -2,11 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from '@shared/api';
 import { AppDispatch } from '@app/store/store'
 import { setAuthenticated } from '@app/store/Auth/AuthSlice'
-
-interface LoginFormData {
-  username: string;
-  password: string;
-}
+import { LoginFormData } from '@features/LoginForm/model/types'
 
 export const loginThunk = createAsyncThunk<
   void,

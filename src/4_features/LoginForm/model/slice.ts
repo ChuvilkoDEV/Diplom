@@ -17,6 +17,7 @@ export const loginSlice = createSlice({
     builder
       .addCase(loginThunk.fulfilled, (state) => {
         state.error = null;
+        console.log(123)
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.error = action.payload || 'Ошибка входа';
