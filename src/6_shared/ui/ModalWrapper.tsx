@@ -16,8 +16,8 @@ export const ModalWrapper: React.FC<ModalWrapperProps> = ({ open, onClose, child
     width: 400,
     bgcolor: "background.paper",
     boxShadow: 24,
-    p: 4,
-    borderRadius: 2,
+    p: 0,
+    borderRadius: '15px',
   };
 
   return (

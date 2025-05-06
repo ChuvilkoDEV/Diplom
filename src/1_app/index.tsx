@@ -12,7 +12,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 const theme = createTheme({
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Inter-Variable", "Roboto", "Helvetica", "Arial", sans-serif',
   },
 });
 

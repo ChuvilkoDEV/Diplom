@@ -5,7 +5,7 @@
 
 .default-btn {
  padding: 0.75rem 1.25rem !important;
-  border-radius: 9999px !important;
+  border-radius: 15px !important;
 }
 
 :root {
@@ -14,4 +14,11 @@
 
 [data-theme='dark'] {
   --background: #0f2027;
+}
+
+@font-face {
+  font-family: "Inter-Variable";
+  src: url("../../public/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }

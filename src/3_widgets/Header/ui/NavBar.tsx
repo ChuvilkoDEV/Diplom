@@ -104,6 +104,7 @@ export const NavBar: React.FC<NavBarProps> = ({
                   color: "black",
                   fontWeight: "500",
                   border: "1px solid black",
+                  lineHeight: "14px !important",
                   "&:hover": {
                     backgroundColor: "#4FB0FD",
                   },
@@ -117,6 +118,7 @@ export const NavBar: React.FC<NavBarProps> = ({
                 sx={{
                   color: "white",
                   fontWeight: "500",
+                  lineHeight: "14px !important",
                   "&:hover": {
                     backgroundColor: "#4FB0FD",
                   },
