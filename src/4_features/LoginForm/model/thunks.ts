@@ -1,8 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import api from '@shared/api';
+import { LoginFormData } from '@features/LoginForm/model/types'
 import { AppDispatch } from '@app/store/store'
 import { setAuthenticated } from '@app/store/Auth/AuthSlice'
-import { LoginFormData } from '@features/LoginForm/model/types'
+import api from '@shared/api';
 import axios from 'axios'
 
 export const loginThunk = createAsyncThunk<
@@ -21,7 +21,7 @@ export const loginThunk = createAsyncThunk<
         dispatch(setAuthenticated(true));
         return;
       } else {
-        return rejectWithValue("Ошибка входа");
+        return rejectWithValue(response.data?.message || "Ошибка входа");
       }
     } catch (e) {
       if (axios.isAxiosError(e)) {

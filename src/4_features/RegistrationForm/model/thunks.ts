@@ -1,13 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RegisterFormData } from "./types";
-import api from '@shared/api';
+import { AppDispatch } from '@app/store/store'
 import { setAuthenticated } from '@app/store/Auth/AuthSlice';
+import api from '@shared/api';
 import axios from "axios";
 
 export const registerThunk = createAsyncThunk<
   void,
   RegisterFormData,
-  { rejectValue: string }
+  { rejectValue: string, dispatch: AppDispatch }
 >(
   "registration/register",
   async (formData, { rejectWithValue, dispatch }) => {
