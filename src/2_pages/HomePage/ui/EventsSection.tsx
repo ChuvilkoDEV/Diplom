@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Box, Typography, CircularProgress } from "@mui/material";
-import { EventCard } from "@entities/EventCard";
+import { Box, Typography } from "@mui/material";
 import { fetchEvents } from "@entities/EventCard/model/api/fetchEvents";
 import { Event } from "@entities/EventCard/model/types";
+import EventsList from '@features/EventsList'
 
-const EventsList: React.FC = () => {
+const EventsSection: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -26,24 +26,10 @@ const EventsList: React.FC = () => {
           Откройте новые знакомства и впечатления
         </Typography>
 
-        {loading ? (
-          <Box display="flex" justifyContent="center" mt={4}>
-            <CircularProgress />
-          </Box>
-        ) : error ? (
-          <Typography color="error" align="center">{error}</Typography>
-        ) : (
-          <Grid container spacing={3}>
-            {events.map((event) => (
-              <Grid item sm={12} md={6} key={event.id}>
-                <EventCard {...event} />
-              </Grid>
-            ))}
-          </Grid>
-        )}
+        <EventsList events={events} loading={loading} error={error} />
       </Box>
     </Box>
   );
 };
 
-export default EventsList;
+export default EventsSection;
