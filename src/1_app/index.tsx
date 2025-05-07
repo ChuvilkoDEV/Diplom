@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "@app/store/store";
 import { HomePage } from "@pages/HomePage";
-import { EventPage } from '@pages/EventPage'
+import EventPage from '@pages/EventPage'
 import { Header } from "@widgets/Header";
 import { Footer } from '@widgets/Footer'
 import { ThemeProvider, createTheme } from "@mui/material/styles";

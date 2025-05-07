@@ -8,7 +8,7 @@ import EventImage from '@pages/EventPage/ui/EventImage'
 import EventDetails from '@pages/EventPage/ui/EventDetails'
 import EventParticipants from '@pages/EventPage/ui/EventParticipants'
 
-export const EventPage: React.FC = () => {
+const EventPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const event = events.find((e) => e.id === Number(id));
 
