@@ -7,12 +7,12 @@ import {
   Button,
   MenuItem,
   Select,
-  SelectChangeEvent,
-  Typography
+  SelectChangeEvent
 } from '@mui/material';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import AddIcon from '@mui/icons-material/Add';
-import { CreateTaskModal } from '@pages/EventsPage/ui/CreateTaskModal'
+import { CreateTaskModal } from '@pages/EventsPage/ui/CreateTaskModal';
+import { FilterModal } from '@pages/EventsPage/ui/FilterModal';
 
 const EventsPage: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -20,6 +20,8 @@ const EventsPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedCity, setSelectedCity] = useState<string>('Москва');
   const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openFilterModal, setOpenFilterModal] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   useEffect(() => {
     fetchEvents()
@@ -30,21 +32,22 @@ const EventsPage: React.FC = () => {
 
   const handleCityChange = (event: SelectChangeEvent) => {
     setSelectedCity(event.target.value);
-    // TODO: добавить фильтрацию по городу
+    // TODO: фильтрация по городу
   };
 
   const handleOpenFilters = () => {
-    // TODO: открыть фильтры
-    alert('Открытие фильтров');
+    setOpenFilterModal(true);
   };
 
-  const handleCreateTask = () => {
-    setOpenCreateModal(true);
+  const handleApplyFilters = (categories: string[]) => {
+    setSelectedCategories(categories);
+    // TODO: применить фильтрацию к списку событий
+    console.log('Применены категории:', categories);
   };
 
   const handleSubmitTask = (data: Event) => {
     console.log('Создана задача:', data);
-    setEvents(prev => [...prev, data]); // можно заменить на refetch
+    setEvents(prev => [...prev, data]);
   };
 
   return (
@@ -54,7 +57,7 @@ const EventsPage: React.FC = () => {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={handleCreateTask}
+            onClick={() => setOpenCreateModal(true)}
           >
             Создать задачу
           </Button>
@@ -82,11 +85,18 @@ const EventsPage: React.FC = () => {
 
         <EventsList events={events} loading={loading} error={error} />
 
-          <CreateTaskModal
-            open={openCreateModal}
-            onClose={() => setOpenCreateModal(false)}
-            onSubmit={handleSubmitTask}
-          />
+        <CreateTaskModal
+          open={openCreateModal}
+          onClose={() => setOpenCreateModal(false)}
+          onSubmit={handleSubmitTask}
+        />
+
+        <FilterModal
+          open={openFilterModal}
+          onClose={() => setOpenFilterModal(false)}
+          selectedCategories={selectedCategories}
+          onApply={handleApplyFilters}
+        />
       </Box>
     </Box>
   );
