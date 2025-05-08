@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "craco start",
-    "build": "npm run clean && craco build",
+    "build": "rm -rf build && craco build",
     "test": "craco test",
     "format": "prettier --write ."
   },
