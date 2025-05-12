@@ -10,6 +10,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { useSelector } from 'react-redux'
 import { RootState } from '@app/store/store'
 import EventsPage from '@pages/EventsPage'
+import { ProfilePage } from '@pages/ProfilePage'
 
 const theme = createTheme({
   typography: {
@@ -30,6 +31,7 @@ export const App: React.FC = () => {
         ) : (
           <Routes>
             <Route path="/" element={<EventsPage/>} />
+            <Route path="/profile" element={<ProfilePage/>} />
             <Route path="/event/:id" element={<EventPage />} />
           </Routes>
         )}
