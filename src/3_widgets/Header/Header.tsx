@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@app/store/store";
 import {
   closeLogin,
-  closeRegistration,
   openLogin,
   openRegistration,
   openMenu,
@@ -15,9 +14,11 @@ import { NavBar } from "./ui/NavBar";
 import { DrawerMenu } from "./ui/DrawerMenu";
 import { MobileButtons } from "./ui/MobileButtons";
 import { ModalWrapper } from "@shared/ui/ModalWrapper";
+import { closeRegistrationAndReset } from '@features/RegistrationForm/model/thunks'
+import { useAppDispatch } from '@app/store/hooks'
 
 export const Header: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const openLoginModal = useSelector((state: RootState) => state.ui.isLoginOpen);
   const openRegistrationModal = useSelector((state: RootState) => state.ui.isRegistrationOpen);
   const openMenuDrawer = useSelector((state: RootState) => state.ui.isMenuOpen);
@@ -41,8 +42,8 @@ export const Header: React.FC = () => {
         <LoginForm onClose={() => dispatch(closeLogin())} />
       </ModalWrapper>
 
-      <ModalWrapper open={openRegistrationModal} onClose={() => dispatch(closeRegistration())}>
-        <RegisterForm onClose={() => dispatch(closeRegistration())} />
+      <ModalWrapper open={openRegistrationModal} onClose={() => dispatch(closeRegistrationAndReset())}>
+        <RegisterForm onClose={() => dispatch(closeRegistrationAndReset())} />
       </ModalWrapper>
 
       <MobileButtons
