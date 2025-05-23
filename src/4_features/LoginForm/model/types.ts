@@ -1,9 +1,9 @@
 export interface LoginFormData {
-  username: string;
+  email: string;
   password: string;
 }
 
 export const LoginFormDataInit = {
-  username: '',
+  email: '',
   password: '',
 }

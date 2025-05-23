@@ -63,8 +63,8 @@ export const LoginForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         <TextField
           label="Email"
           type="email"
-          value={form.username}
-          onChange={handleChange('username')}
+          value={form.email}
+          onChange={handleChange('email')}
           fullWidth
         />
         <TextField
@@ -77,10 +77,10 @@ export const LoginForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         <Button
           className={'gradient default-btn'}
           onClick={handleLogin}
-          disabled={!form.username || !form.password}
+          disabled={!form.email || !form.password}
           sx={{
-            opacity: !form.username || !form.password ? 0.5 : 1,
-            pointerEvents: !form.username || !form.password ? 'none' : 'auto',
+            opacity: !form.email || !form.password ? 0.5 : 1,
+            pointerEvents: !form.email || !form.password ? 'none' : 'auto',
             transition: 'opacity 0.3s ease',
           }}
         >

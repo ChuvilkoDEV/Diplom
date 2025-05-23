@@ -13,6 +13,8 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import AddIcon from '@mui/icons-material/Add';
 import { CreateTaskModal } from '@pages/EventsPage/ui/CreateTaskModal';
 import { FilterModal } from '@pages/EventsPage/ui/FilterModal';
+import { Header } from '@widgets/Header'
+import { Footer } from '@widgets/Footer'
 
 const EventsPage: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -50,7 +52,8 @@ const EventsPage: React.FC = () => {
     setEvents(prev => [...prev, data]);
   };
 
-  return (
+  return (<>
+    <Header />
     <Box sx={{ width: "100vw", py: 4, display: "flex", justifyContent: "center" }}>
       <Box sx={{ maxWidth: "lg", width: "100%", px: 2 }}>
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
@@ -99,6 +102,8 @@ const EventsPage: React.FC = () => {
         />
       </Box>
     </Box>
+      <Footer />
+    </>
   );
 };
 

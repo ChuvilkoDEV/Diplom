@@ -9,7 +9,7 @@ export const fetchEvents = async (
 
   const response = await api.get<Event[]>("/events", {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: token ? `Bearer ${token}` : '',
     },
     params: {
       offset,

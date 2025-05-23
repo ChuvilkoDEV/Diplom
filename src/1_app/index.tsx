@@ -28,7 +28,6 @@ export const App: React.FC = () => {
       <CssBaseline />
       <Router>
         <Box display="flex" flexDirection="column" minHeight="100vh">
-          <Header />
           <Box component="main" flexGrow={1}>
             {!isAuthenticated ? (
               <HomePage />
@@ -41,7 +40,6 @@ export const App: React.FC = () => {
               </Routes>
             )}
           </Box>
-          <Footer />
         </Box>
       </Router>
     </ThemeProvider>

@@ -9,6 +9,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import { Header } from '@widgets/Header';
 
 const chatsMock = [
   { id: 1, name: "Чат 1" },
@@ -59,86 +60,93 @@ export const ChatPage: React.FC = () => {
   }, [messages.length]);
 
   return (
-    <Box display="flex" height="100vh" justifyContent="center">
-      <Paper
-        sx={{
-          display: "flex",
-          flex: 1,
-          maxWidth: "1200px",
-          width: "100%",
-          boxShadow: 0,
-        }}
+    <>
+      <Header />
+      <Box
+        display="flex"
+        justifyContent="center"
+        sx={{ height: "calc(100vh - 88px)" }}
       >
-        <Box
-          width="300px"
-          borderRight="1px solid #e0e0e0"
-          bgcolor="#f7f7f7"
-          p={2}
-          overflow="auto"
+        <Paper
+          sx={{
+            display: "flex",
+            flex: 1,
+            maxWidth: "1200px",
+            width: "100%",
+            boxShadow: 0,
+          }}
         >
-          <Typography variant="h6" gutterBottom>
-            Чаты
-          </Typography>
-          <List>
-            {chatsMock.map((chat) => (
-              <ListItemButton
-                key={chat.id}
-                selected={chat.id === selectedChat}
-                onClick={() => setSelectedChat(chat.id)}
-              >
-                <ListItemText primary={chat.name} />
-              </ListItemButton>
-            ))}
-          </List>
-        </Box>
-
-        <Box display="flex" flexDirection="column" flex={1}>
           <Box
-            flex={1}
+            width="300px"
+            borderRight="1px solid #e0e0e0"
+            bgcolor="#f7f7f7"
             p={2}
             overflow="auto"
-            sx={{ display: "flex", flexDirection: "column" }}
           >
-            {selectedChat ? (
-              <>
-                {messages.map((msg) => (
-                  <Box
-                    key={msg.id}
-                    alignSelf={msg.fromMe ? "flex-end" : "flex-start"}
-                    bgcolor={msg.fromMe ? "#cfe9ff" : "#f1f1f1"}
-                    borderRadius={2}
-                    p={1}
-                    m={0.5}
-                    maxWidth="70%"
-                  >
-                    {msg.text}
-                  </Box>
-                ))}
-                <div ref={messagesEndRef} />
-              </>
-            ) : (
-              <Typography variant="body1">Выберите чат</Typography>
-            )}
+            <Typography variant="h6" gutterBottom>
+              Чаты
+            </Typography>
+            <List>
+              {chatsMock.map((chat) => (
+                <ListItemButton
+                  key={chat.id}
+                  selected={chat.id === selectedChat}
+                  onClick={() => setSelectedChat(chat.id)}
+                >
+                  <ListItemText primary={chat.name} />
+                </ListItemButton>
+              ))}
+            </List>
           </Box>
 
-          <Box display="flex" p={2} borderTop="1px solid #e0e0e0">
-            <TextField
-              fullWidth
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Введите сообщение"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleSend();
-                }
-              }}
-            />
-            <Button onClick={handleSend} variant="contained" sx={{ ml: 2 }}>
-              Отправить
-            </Button>
+          <Box display="flex" flexDirection="column" flex={1}>
+            <Box
+              flex={1}
+              p={2}
+              overflow="auto"
+              sx={{ display: "flex", flexDirection: "column" }}
+            >
+              {selectedChat ? (
+                <>
+                  {messages.map((msg) => (
+                    <Box
+                      key={msg.id}
+                      alignSelf={msg.fromMe ? "flex-end" : "flex-start"}
+                      bgcolor={msg.fromMe ? "#cfe9ff" : "#f1f1f1"}
+                      borderRadius={2}
+                      p={1}
+                      m={0.5}
+                      maxWidth="70%"
+                    >
+                      {msg.text}
+                    </Box>
+                  ))}
+                  <div ref={messagesEndRef} />
+                </>
+              ) : (
+                <Typography variant="body1">Выберите чат</Typography>
+              )}
+            </Box>
+
+            <Box display="flex" p={2} borderTop="1px solid #e0e0e0">
+              <TextField
+                fullWidth
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Введите сообщение"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSend();
+                  }
+                }}
+              />
+              <Button onClick={handleSend} variant="contained" sx={{ ml: 2 }}>
+                Отправить
+              </Button>
+            </Box>
           </Box>
-        </Box>
-      </Paper>
-    </Box>
+        </Paper>
+      </Box>
+    </>
   );
 };

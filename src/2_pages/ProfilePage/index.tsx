@@ -8,6 +8,8 @@ import {
   Button,
   Divider,
 } from '@mui/material';
+import { Header } from '@widgets/Header'
+import { Footer } from '@widgets/Footer'
 
 export const ProfilePage: React.FC = () => {
   const user = {
@@ -47,6 +49,8 @@ export const ProfilePage: React.FC = () => {
   };
 
   return (
+    <>
+      <Header />
     <Box
       sx={{
         display: 'flex',
@@ -134,5 +138,8 @@ export const ProfilePage: React.FC = () => {
         </Box>
       </Box>
     </Box>
+
+      <Footer />
+    </>
   );
 };
