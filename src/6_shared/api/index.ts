@@ -1,10 +1,19 @@
-import axios from "axios";
+import axios from 'axios';
 
-const post = axios.create({
-  baseURL: "http://212.233.90.56:8081",
+const api = axios.create({
+  baseURL: 'http://212.233.90.56:8081',
   headers: {
-    "Content-Type": "application/json"
-  }
+    'Content-Type': 'application/json',
+  },
 });
 
-export default post;
+// Добавим интерцептор для авторизации, если нужно
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('accessToken');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export default api;
