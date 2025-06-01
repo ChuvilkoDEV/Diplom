@@ -61,8 +61,9 @@ const EventsPage: React.FC = () => {
             variant="contained"
             startIcon={<AddIcon />}
             onClick={() => setOpenCreateModal(true)}
+            className={'gradient default-btn'}
           >
-            Создать задачу
+            Создать событие
           </Button>
 
           <Select
@@ -80,6 +81,7 @@ const EventsPage: React.FC = () => {
           <Button
             variant="outlined"
             startIcon={<FilterAltIcon />}
+            className={'gradient default-btn'}
             onClick={handleOpenFilters}
           >
             Фильтры

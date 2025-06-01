@@ -81,7 +81,7 @@ export const EventCard: React.FC<EventCardProps> = ({
               {title}
             </Typography>
             <Stack direction="row" spacing={1} sx={{ mt: 1, flexWrap: "wrap" }}>
-              <Chip label={`📅 ${formattedDate}`} />
+              {/*<Chip label={`📅 ${formattedDate}`} />*/}
               <Chip label={`📍 ${location}`} />
             </Stack>
           </Box>

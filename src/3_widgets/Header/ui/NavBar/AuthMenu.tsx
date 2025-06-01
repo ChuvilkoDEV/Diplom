@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Avatar, Box, IconButton, Menu, MenuItem } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { logout } from "@app/store/Auth/AuthSlice";
+import { useNavigate } from 'react-router-dom'
 
 export const AuthMenu: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   return (
@@ -15,7 +17,7 @@ export const AuthMenu: React.FC = () => {
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
         <MenuItem onClick={() => {
           setAnchorEl(null);
-          console.log("Профиль");
+          navigate("/profile");
         }}>
           Профиль
         </MenuItem>
