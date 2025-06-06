@@ -193,6 +193,7 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({ open, onClose,
                   variant={form.selectedDays.includes(day) ? 'contained' : 'outlined'}
                   onClick={() => toggleValueInArray('selectedDays', day)}
                   size="small"
+                  style={{color: '#df19d8', borderColor: '#df19d8'}}
                 >
                   {day}
                 </Button>
@@ -209,6 +210,7 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({ open, onClose,
                   variant={form.selectedDates.includes(d.value) ? 'contained' : 'outlined'}
                   onClick={() => toggleValueInArray('selectedDates', d.value)}
                   size="small"
+                  style={{color: '#df19d8', borderColor: '#df19d8'}}
                 >
                   {d.label}
                 </Button>
@@ -219,8 +221,8 @@ export const CreateTaskModal: React.FC<CreateTaskModalProps> = ({ open, onClose,
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onClose}>Отмена</Button>
-        <Button onClick={handleSubmit} variant="contained">
+        <Button onClick={onClose} style={{color: '#df19d8'}}>Отмена</Button>
+        <Button onClick={handleSubmit} variant="contained" className={'gradient default-btn'}>
           Создать
         </Button>
       </DialogActions>

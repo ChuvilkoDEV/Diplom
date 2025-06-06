@@ -74,13 +74,13 @@ export const ProfilePage: React.FC = () => {
           <Grid item xs={12} sm={8} container alignItems="center" spacing={2}>
             <Grid item>
               <Avatar
-                sx={{ width: 64, height: 64, fontSize: 28, bgcolor: 'primary.main' }}
+                sx={{ width: 64, height: 64, fontSize: 28}}
               >
-                {user.username[0].toUpperCase()}
+                U
               </Avatar>
             </Grid>
             <Grid item>
-              <Typography variant="h6">{user.username}</Typography>
+              <Typography variant="h6">Username</Typography>
               <Typography color="textSecondary">{user.email}</Typography>
               <Typography variant="body2" sx={{ mt: 1 }}>
                 {user.description}
@@ -89,7 +89,7 @@ export const ProfilePage: React.FC = () => {
           </Grid>
 
           <Grid item xs={12} sm={4} textAlign={{ xs: 'left', sm: 'right' }}>
-            <Button variant="contained" onClick={handleSendMessage}>
+            <Button variant="contained" onClick={handleSendMessage} className={'gradient default-btn'}>
               Написать сообщение
             </Button>
           </Grid>
@@ -109,7 +109,7 @@ export const ProfilePage: React.FC = () => {
 
         <Box sx={{ mt: 3 }}>
           <Typography variant="subtitle1" gutterBottom>
-            Любимые интересы:
+            Любимые темы:
           </Typography>
           <Box display="flex" flexWrap="wrap" gap={1}>
             {user.favoriteInterests.map((interest) => (
@@ -124,7 +124,7 @@ export const ProfilePage: React.FC = () => {
 
         <Box sx={{ mt: 3 }}>
           <Typography variant="subtitle1" gutterBottom>
-            Нелюбимые интересы:
+            Нелюбимые темы:
           </Typography>
           <Box display="flex" flexWrap="wrap" gap={1}>
             {user.dislikedInterests.map((interest) => (

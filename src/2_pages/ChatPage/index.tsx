@@ -12,23 +12,29 @@ import {
 import { Header } from '@widgets/Header';
 
 const chatsMock = [
-  { id: 1, name: "Чат 1" },
-  { id: 2, name: "Чат 2" },
-  { id: 3, name: "Чат 3" },
+  { id: 1, name: "Станислав" },
+  { id: 2, name: "Группа проекта" },
+  { id: 3, name: "Володя" },
 ];
 
-const messagesMock: Record<number, { id: number; text: string; fromMe: boolean }[]> = {
+const messagesMock: Record<
+  number,
+  { id: number; text: string; fromMe: boolean; createdAt?: string }[]
+> = {
   1: [
-    { id: 1, text: "Привет!", fromMe: false },
-    { id: 2, text: "Как дела?", fromMe: true },
+    { id: 1, text: "Привет, когда встретимся по поводу диплома?", fromMe: false },
+    { id: 2, text: "Я могу завтра в 14:00, тебе удобно?", fromMe: true },
   ],
   2: [
-    { id: 1, text: "Здесь другой чат", fromMe: false },
+    { id: 1, text: "Коллеги, предлагаю встретиться в субботу в коворкинге", fromMe: true },
+    { id: 2, text: "Мне удобно после 12:00", fromMe: false },
   ],
   3: [
-    { id: 1, text: "Привет из третьего чата", fromMe: true },
+    { id: 1, text: "Йо, идём на концерт?", fromMe: false },
+    { id: 2, text: "Давай! Когда?", fromMe: true },
   ],
 };
+
 
 export const ChatPage: React.FC = () => {
   const [selectedChat, setSelectedChat] = useState<number | null>(1);
@@ -140,7 +146,7 @@ export const ChatPage: React.FC = () => {
                   }
                 }}
               />
-              <Button onClick={handleSend} variant="contained" sx={{ ml: 2 }}>
+              <Button onClick={handleSend} variant="contained" sx={{ ml: 2 }} className={'gradient'}>
                 Отправить
               </Button>
             </Box>
