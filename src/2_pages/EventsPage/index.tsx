@@ -37,9 +37,8 @@ const EventsPage: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     setError(null);
-    const offset = (currentPage - 1) * EVENTS_PER_PAGE;
 
-    fetchEvents(offset, EVENTS_PER_PAGE)
+    fetchEvents(currentPage, EVENTS_PER_PAGE)
       .then(setEvents)
       .catch(() => setError("Ошибка при загрузке событий"))
       .finally(() => setLoading(false));
