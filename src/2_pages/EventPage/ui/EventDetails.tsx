@@ -1,8 +1,33 @@
-import React from "react";
-import { Box, Typography, Avatar, Chip, Stack, Button } from "@mui/material";
-import { User, Category } from '../model/types'
+// src/pages/EventPage/ui/EventDetails.tsx
+import React, { useState } from "react";
+import { Box, Typography, Avatar, Chip, Stack, Button, CircularProgress } from "@mui/material";
+import { User, Category } from '../model/types';
+import { joinEvent } from '../model/eventService';
 
-const EventDetails: React.FC<{ creator: User; categories: Category[] }> = ({ creator, categories = [] }) => {
+interface EventDetailsProps {
+  creator: User;
+  categories: Category[];
+  eventId: string | undefined;
+}
+
+const EventDetails: React.FC<EventDetailsProps> = ({ creator, categories = [], eventId }) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleJoin = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await joinEvent(eventId);
+      // Можно добавить уведомление об успешном присоединении
+    } catch (e) {
+      setError("Ошибка при присоединении к мероприятию");
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (!creator) {
     return <Typography variant="body1">Данные организатора отсутствуют.</Typography>;
   }
@@ -22,10 +47,20 @@ const EventDetails: React.FC<{ creator: User; categories: Category[] }> = ({ cre
               </Stack>
             </Box>
           </Box>
-          <Button variant="contained" className={'gradient default-btn'}>
-            Присоединиться к мероприятию
+          <Button
+            variant="contained"
+            className={'gradient default-btn'}
+            onClick={handleJoin}
+            disabled={loading}
+          >
+            {loading ? <CircularProgress size={24} color="inherit" /> : "Присоединиться к мероприятию"}
           </Button>
         </Box>
+        {error && (
+          <Typography variant="body2" color="error">
+            {error}
+          </Typography>
+        )}
       </Stack>
     </Box>
   );

@@ -17,10 +17,10 @@ export const EventCard: React.FC<EventCardProps> = ({
                                                       id,
                                                       title,
                                                       imageUrl,
-                                                      categories,
+                                                      categories = [], // Устанавливаем значение по умолчанию
                                                       dateOfTheEvent,
                                                       location,
-                                                      participants,
+                                                      participants = [], // Устанавливаем значение по умолчанию
                                                       creator,
                                                     }) => {
   const navigate = useNavigate();
@@ -78,7 +78,7 @@ export const EventCard: React.FC<EventCardProps> = ({
         <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
           <Avatar
             src={creator?.tokens?.[0]?.accessToken || ""}
-            alt={creator.username}
+            alt={creator?.username || "Организатор"}
             sx={{ width: 56, height: 56, mr: 2 }}
           />
           <Box>
@@ -91,7 +91,6 @@ export const EventCard: React.FC<EventCardProps> = ({
               {title}
             </Typography>
             <Stack direction="row" spacing={1} sx={{ mt: 1, flexWrap: "wrap" }}>
-              {/*<Chip label={`📅 ${formattedDate}`} />*/}
               <Chip label={`📍 ${location}`} />
             </Stack>
           </Box>
@@ -122,14 +121,17 @@ export const EventCard: React.FC<EventCardProps> = ({
             {participants.slice(0, maxAvatars).map((participant) => (
               <Avatar
                 key={participant.id}
-                alt={participant.username}
-                src={participant.tokens?.[0]?.accessToken || ""}
-                sx={{ width: 40, height: 40 }}
+                // src={participant.avatarUrl || ""}
+                alt={participant.username || "Участник"}
+                sx={{ width: 30, height: 30 }}
               />
             ))}
           </Box>
         </Box>
       </CardContent>
+      <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+        {formattedDate}
+      </Typography>
     </Card>
   );
 };
