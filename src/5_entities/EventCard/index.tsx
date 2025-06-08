@@ -31,7 +31,7 @@ export const EventCard: React.FC<EventCardProps> = ({
     const updateMaxAvatars = () => {
       if (usersRef.current) {
         const containerWidth = usersRef.current.getBoundingClientRect().width;
-        const avatarsPerRow = Math.floor(containerWidth / 45); // 40px + 5px отступ
+        const avatarsPerRow = Math.floor(containerWidth / 45);
         const totalAvatars = avatarsPerRow * 4;
         setMaxAvatars(totalAvatars);
       }
@@ -44,6 +44,13 @@ export const EventCard: React.FC<EventCardProps> = ({
 
   const handleClick = () => {
     navigate(`/event/${id}`);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleClick();
+    }
   };
 
   const formattedDate = new Date(dateOfTheEvent).toLocaleDateString("ru-RU", {
@@ -63,6 +70,9 @@ export const EventCard: React.FC<EventCardProps> = ({
         cursor: "pointer"
       }}
       onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
     >
       <CardContent sx={{ flexGrow: 1, padding: 0 }} style={{ paddingBottom: 0 }}>
         <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>

@@ -23,7 +23,7 @@ export const ChatPage: React.FC = () => {
   const fetchChats = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await api.get("/chats", {
+      const response = await api.get("/chat", {
         headers: {
           Authorization: token ? `Bearer ${token}` : '',
         },
