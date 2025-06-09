@@ -10,7 +10,26 @@ import {
   Typography,
 } from "@mui/material";
 import { Header } from '@widgets/Header';
-import api from "@shared/api"; // Импортируйте ваш API
+import { fetchChats, fetchMessages } from "./model/chatModel";
+
+const OLD_START_TIMESTAMP = "01.01.2000 00:00:00";
+
+function formatDate(date: Date): string {
+  const pad = (n: number) => n.toString().padStart(2, "0");
+  return (
+    pad(date.getDate()) +
+    "." +
+    pad(date.getMonth() + 1) +
+    "." +
+    date.getFullYear() +
+    " " +
+    pad(date.getHours()) +
+    ":" +
+    pad(date.getMinutes()) +
+    ":" +
+    pad(date.getSeconds())
+  );
+}
 
 export const ChatPage: React.FC = () => {
   const [selectedChat, setSelectedChat] = useState<number | null>(null);
@@ -18,37 +37,48 @@ export const ChatPage: React.FC = () => {
   const [messagesByChat, setMessagesByChat] = useState<Record<number, any[]>>({});
   const [chats, setChats] = useState<{ id: number; name: string }[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const pollingRef = useRef<boolean>(false);
 
-  // Функция для получения чатов
-  const fetchChats = async () => {
-    try {
-      const token = localStorage.getItem("accessToken");
-      const response = await api.get("/chat", {
-        headers: {
-          Authorization: token ? `Bearer ${token}` : '',
-        },
-      });
-      setChats(response.data);
-    } catch (error) {
-      console.error("Ошибка при получении чатов:", error);
-    }
+  const loadChats = async () => {
+    const token = localStorage.getItem("accessToken") || '';
+    const chatsData = await fetchChats(token);
+    setChats(chatsData);
   };
 
-  // Функция для получения сообщений
-  const fetchMessages = async (chatId: number) => {
-    try {
-      const token = localStorage.getItem("accessToken");
-      const response = await api.get(`/message/${chatId}`, {
-        headers: {
-          Authorization: token ? `Bearer ${token}` : '',
-        },
-      });
-      setMessagesByChat((prev) => ({
-        ...prev,
-        [chatId]: response.data,
-      }));
-    } catch (error) {
-      console.error("Ошибка при получении сообщений:", error);
+  const loadMessages = async (chatId: number) => {
+    const token = localStorage.getItem("accessToken") || '';
+    const messagesData = await fetchMessages(chatId, token, OLD_START_TIMESTAMP);
+    setMessagesByChat((prev) => ({
+      ...prev,
+      [chatId]: messagesData,
+    }));
+  };
+
+  const pollNewMessages = async (chatId: number) => {
+    pollingRef.current = true;
+    const token = localStorage.getItem("accessToken") || '';
+
+    while (pollingRef.current && selectedChat === chatId) {
+      let lastMessages = messagesByChat[chatId] || [];
+      let lastTime = OLD_START_TIMESTAMP;
+      if (lastMessages.length > 0) {
+        const lastMsg = lastMessages[lastMessages.length - 1];
+        const date = new Date(lastMsg.createdAt || lastMsg.date || Date.now());
+        lastTime = formatDate(date);
+      }
+
+      try {
+        const newMessages = await fetchMessages(chatId, token, lastTime);
+        if (newMessages.length > 0) {
+          setMessagesByChat((prev) => ({
+            ...prev,
+            [chatId]: [...(prev[chatId] || []), ...newMessages],
+          }));
+        }
+      } catch {
+        // Игнорируем ошибки
+      }
+      await new Promise((r) => setTimeout(r, 1000));
     }
   };
 
@@ -59,6 +89,7 @@ export const ChatPage: React.FC = () => {
       id: Date.now(),
       text: input.trim(),
       fromMe: true,
+      createdAt: new Date().toISOString(),
     };
 
     setMessagesByChat((prev) => ({
@@ -67,18 +98,20 @@ export const ChatPage: React.FC = () => {
     }));
 
     setInput("");
-
-    // Здесь вы можете отправить сообщение на сервер, если это необходимо
   };
 
   useEffect(() => {
-    fetchChats(); // Получаем чаты при монтировании компонента
+    loadChats();
   }, []);
 
   useEffect(() => {
     if (selectedChat) {
-      fetchMessages(selectedChat); // Получаем сообщения при выборе чата
+      loadMessages(selectedChat);
+      pollNewMessages(selectedChat);
     }
+    return () => {
+      pollingRef.current = false; // Останавливаем опрос при смене чата
+    };
   }, [selectedChat]);
 
   const messagesLength = selectedChat !== null ? messagesByChat[selectedChat]?.length ?? 0 : 0;
@@ -86,7 +119,6 @@ export const ChatPage: React.FC = () => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messagesLength]);
-
 
   return (
     <>
@@ -127,49 +159,30 @@ export const ChatPage: React.FC = () => {
               ))}
             </List>
           </Box>
-
-          <Box display="flex" flexDirection="column" flex={1}>
-            <Box
-              flex={1}
-              p={2}
-              overflow="auto"
-              sx={{ display: "flex", flexDirection: "column" }}
-            >
-              {selectedChat !== null && messagesByChat[selectedChat] ? (
-                <>
-                  {messagesByChat[selectedChat]?.map((msg) => (
-                    <Box
-                      key={msg.id}
-                      alignSelf={msg.fromMe ? "flex-end" : "flex-start"}
-                      bgcolor={msg.fromMe ? "#cfe9ff" : "#f1f1f1"}
-                      borderRadius={2}
-                      p={1}
-                      m={0.5}
-                      maxWidth="70%"
-                    >
-                      {msg.text}
-                    </Box>
-                  ))}
-                  <div ref={messagesEndRef} />
-                </>
-              ) : (
-                <Typography variant="body1">Выберите чат</Typography>
-              )}
+          <Box flex={1} p={2} display="flex" flexDirection="column">
+            <Typography variant="h6" gutterBottom>
+              {selectedChat ? `Чат ${selectedChat}` : "Выберите чат"}
+            </Typography>
+            <Box flex={1} overflow="auto" display="flex" flexDirection="column">
+              {selectedChat &&
+                messagesByChat[selectedChat]?.map((message) => (
+                  <Typography
+                    key={message.id}
+                    align={message.fromMe ? "right" : "left"}
+                  >
+                    {message.text}
+                  </Typography>
+                ))}
+              <div ref={messagesEndRef} />
             </Box>
-
-            <Box display="flex" p={2} borderTop="1px solid #e0e0e0">
+            <Box display="flex" mt={2}>
               <TextField
-                fullWidth
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Введите сообщение"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handleSend();
-                  }
-                }}
+                fullWidth
+                placeholder="Введите сообщение..."
               />
-              <Button onClick={handleSend} variant="contained" sx={{ ml: 2 }} className={'gradient'}>
+              <Button onClick={handleSend} variant="contained" color="primary">
                 Отправить
               </Button>
             </Box>
@@ -179,5 +192,3 @@ export const ChatPage: React.FC = () => {
     </>
   );
 };
-
-
